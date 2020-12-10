@@ -15,7 +15,7 @@
 /**
  * Adds a random greeting to the page.
  */
-function addRandomGreeting() {
+function addRandomFact() {
   const greetings =
       ['I have never broken a bone', 'I don\'t like chocolate', 'I can speak Chinese', 'Pineapple goes on pizza'];
 
