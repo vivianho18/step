@@ -61,7 +61,14 @@
           Netherlands, Budapest, Italy and Croatia.
       </p> 
       <p>Click the link to see photos!</p>
-      <h2 style="background-color:skyblue">Data Servlet</h2>
+      <h2 style="background-color:skyblue">Comments</h2>
+      <p>Post a comment!</p>
+      
+      <form action="/comments" method="POST">
+        <input type="text" id="content" name="content"><br><br>
+        <input type="submit" value="Post">
+      </form>
+
       <p>Click the button to fetch comments from the server!</p>
       <button onclick="getCommentsFromServer()">Fetch!</button>
       <div id="comment-container"></div>
