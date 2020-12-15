@@ -22,3 +22,7 @@ h2 {
 h3 {
     font-style: italic;
 }
+
+#message-container {
+  margin-top: 20px;
+}
