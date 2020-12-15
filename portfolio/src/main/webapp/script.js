@@ -31,8 +31,7 @@ function getCommentsFromServer() {
   fetch('/data').then(response => response.json()).then((serverData) => {
     let comments = "";
     for (let i = 0; i < serverData.length; i++) {
-      comments += serverData[i] + "<br>"; 
-      console.log(serverData[i]); 
+      comments += serverData[i] + "<br>";
     }
     document.getElementById('comment-container').innerHTML = comments;
   });
