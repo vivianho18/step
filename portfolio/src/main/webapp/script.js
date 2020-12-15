@@ -28,11 +28,19 @@ function addRandomFact() {
 }
 
 function getCommentsFromServer() {
-  fetch('/data').then(response => response.json()).then((serverData) => {
+  fetch('/comments').then(response => response.json()).then((serverData) => {
     let comments = "";
-    for (let i = 0; i < serverData.length; i++) {
-      comments += serverData[i] + "<br>";
+    
+    if (serverData.length == 0) {
+      comments += "No comments have been posted yet :( Be the first!"
+    } else {
+      for (let i = 0; i < serverData.length; i+=2) {
+        let name = serverData[i]; 
+        let content = serverData[i+1]; 
+        comments += name + ": " + content + "<br><br>";
+      }
     }
+    
     document.getElementById('comment-container').innerHTML = comments;
   });
 }

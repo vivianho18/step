@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
-  <body>
+  <body onload="getCommentsFromServer()">
     <div id="content">
       <h1 style="text-align:center;"> &#128032 &#127774 &#127797 &#127800 &#128293
         Vivian's Portfolio 
@@ -61,10 +61,17 @@
           Netherlands, Budapest, Italy and Croatia.
       </p> 
       <p>Click the link to see photos!</p>
-      <h2 style="background-color:skyblue">Data Servlet</h2>
-      <p>Click the button to fetch comments from the server!</p>
-      <button onclick="getCommentsFromServer()">Fetch!</button>
-      <div id="comment-container"></div>
+      <h2 style="background-color:skyblue">Comments</h2>
+      <h3>Post a comment!</h3>
+      <form action="/comments" method="POST">
+        <p>Your name:</p>
+        <input type="text" id="name" name="name"><br>
+        <p>Type your comment here:</p>
+        <input type="text" id="content" name="content"><br><br>
+        <input type="submit" value="Post">
+      </form>
+      <h3>Past Comments</h3>
+      <p id="comment-container"></p>
       <br>
     </div>
   </body>
