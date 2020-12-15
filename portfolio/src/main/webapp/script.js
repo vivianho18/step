@@ -27,9 +27,13 @@ function addRandomFact() {
   greetingContainer.innerText = greeting;
 }
 
-function getMessageFromServer() {
-
-  fetch('/data').then(response => response.text()).then((message) => {
-    document.getElementById('message-container').innerText = message;
+function getCommentsFromServer() {
+  fetch('/data').then(response => response.json()).then((serverData) => {
+    let comments = "";
+    for (let i = 0; i < serverData.length; i++) {
+      comments += serverData[i] + "<br>"; 
+      console.log(serverData[i]); 
+    }
+    document.getElementById('comment-container').innerHTML = comments;
   });
 }
