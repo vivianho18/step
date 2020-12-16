@@ -17,7 +17,7 @@
  */
 function addRandomFact() {
   const greetings =
-      ['I have never broken a bone', 'I don\'t like chocolate', 'I can speak Chinese', 'Pineapple goes on pizza'];
+      ['I have never broken a bone', 'I don\'t like chocolate', 'I can speak Chinese', 'I like pineapple on pizza'];
 
   // Pick a random greeting.
   const greeting = greetings[Math.floor(Math.random() * greetings.length)];
@@ -34,9 +34,9 @@ function getCommentsFromServer() {
     if (serverData.length == 0) {
       comments += "No comments have been posted yet :( Be the first!"
     } else {
-      for (let i = 0; i < serverData.length; i+=2) {
-        let name = serverData[i]; 
-        let content = serverData[i+1]; 
+      for (let i = 0; i < serverData.length; i++) {
+        let name = serverData[i].name; 
+        let content = serverData[i].content; 
         comments += name + ": " + content + "<br><br>";
       }
     }
