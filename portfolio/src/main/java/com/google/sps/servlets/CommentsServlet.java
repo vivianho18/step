@@ -14,6 +14,7 @@ import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.FetchOptions;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/comments")
@@ -21,13 +22,19 @@ public class CommentsServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    
+    String queryString = request.getQueryString();
+    String[] split = queryString.split("="); 
+    int limit = Integer.parseInt(split[1]); 
+    FetchOptions fetchOptions = FetchOptions.Builder.withLimit(limit); 
+
     Query query = new Query("Comment");
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
     List<HashMap<String, String>> allComments = new ArrayList<HashMap<String, String>>();
 
-    for (Entity entity : results.asIterable()) {
+    for (Entity entity : results.asIterable(fetchOptions)) {
       HashMap<String, String> comment = new HashMap<String, String>();
       String name = (String) entity.getProperty("name");
       String content = (String) entity.getProperty("content");
