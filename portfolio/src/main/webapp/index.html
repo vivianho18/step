@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
-  <body onload="getCommentsFromServer(2)">
+  <body onload="getCommentsFromServer()">
     <div id="content">
       <h1 style="text-align:center;"> &#128032 &#127774 &#127797 &#127800 &#128293
         Vivian's Portfolio 
@@ -77,6 +77,8 @@
         <option value="4">4</option>
         <option value="6">6</option>
       </select>
+      <br><br>
+      <button onclick="deleteComments()">Delete Comments</button>
       <p id="comment-container"></p>
       <br>
     </div>

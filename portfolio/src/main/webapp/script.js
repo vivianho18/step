@@ -27,7 +27,7 @@ function addRandomFact() {
   greetingContainer.innerText = greeting;
 }
 
-function getCommentsFromServer(number) {
+function getCommentsFromServer(number=2) {
   // Create query string 
   let url = "/comments?number=" + String(number);
 
@@ -46,4 +46,12 @@ function getCommentsFromServer(number) {
     }
     document.getElementById('comment-container').innerHTML = comments;
   });
+}
+
+function deleteComments() {
+  const request = new Request('/delete-comments', {'method': 'POST'});
+  fetch(request).then(response => {
+      getCommentsFromServer();  
+    }
+  );
 }
