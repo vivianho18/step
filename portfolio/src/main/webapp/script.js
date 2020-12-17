@@ -27,8 +27,12 @@ function addRandomFact() {
   greetingContainer.innerText = greeting;
 }
 
-function getCommentsFromServer() {
-  fetch('/comments').then(response => response.json()).then((serverData) => {
+function getCommentsFromServer(number) {
+  // Create query string 
+  let url = "/comments?number=" + String(number);
+
+  fetch(url).then(response => response.json()).then((serverData) => {
+    document.getElementById('comment-container').innerHTML = ""
     let comments = "";
     
     if (serverData.length == 0) {
@@ -40,7 +44,6 @@ function getCommentsFromServer() {
         comments += name + ": " + content + "<br><br>";
       }
     }
-    
     document.getElementById('comment-container').innerHTML = comments;
   });
 }

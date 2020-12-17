@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
-  <body onload="getCommentsFromServer()">
+  <body onload="getCommentsFromServer(2)">
     <div id="content">
       <h1 style="text-align:center;"> &#128032 &#127774 &#127797 &#127800 &#128293
         Vivian's Portfolio 
@@ -72,10 +72,10 @@
       </form>
       <h3>Past Comments</h3>
       <label for="num-comments">Show:</label>
-      <select name="num-comments" id="num-comments">
-        <option value="10">10</option>
-        <option value="20">20</option>
-        <option value="30">30</option>
+      <select onchange="getCommentsFromServer(this.value)" name="num-comments" id="num-comments">
+        <option value="2">2</option>
+        <option value="4">4</option>
+        <option value="6">6</option>
       </select>
       <p id="comment-container"></p>
       <br>
