@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <title>Vivian's Portfolio</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCy0lfm1q0m9beirXgwL_BOWdCRt5Z1Msk"></script>
     <script src="script.js"></script>
   </head>
-  <body onload="getCommentsFromServer()">
+  <body onload="getCommentsFromServer(); createMap();">
     <div id="content">
       <h1 style="text-align:center;"> &#128032 &#127774 &#127797 &#127800 &#128293
         Vivian's Portfolio 
@@ -81,6 +82,8 @@
       <button onclick="deleteComments()">Delete Comments</button>
       <p id="comment-container"></p>
       <br>
+      <h2 style="background-color:violet">Map Feature!</h2>
+      <div id="map"></div>
     </div>
   </body>
 </html>
