@@ -60,5 +60,6 @@ function deleteComments() {
 function createMap() {
   const map = new google.maps.Map(
       document.getElementById('map'),
-      {center: {lat: 37.422, lng: -122.084}, zoom: 16});
+      {center: {lat: -34.397, lng: 150.644}, zoom: 8, 
+      mapId: 'c41864c7bb66540a'});
 }
