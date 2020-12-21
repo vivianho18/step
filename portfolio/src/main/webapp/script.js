@@ -74,6 +74,7 @@ function createMap() {
       position: {lat: -33.859159, lng: 151.278378}, 
       map: map, 
       title: 'Favourite Japanese Restaurant',
+      draggable: true,
       animation: google.maps.Animation.DROP
   }); 
 
@@ -81,6 +82,7 @@ function createMap() {
       position: {lat: -33.888813, lng: 151.188131}, 
       map: map, 
       title: 'University of Sydney', 
+      label: 'Uni',
       animation: google.maps.Animation.DROP
   });
 }
