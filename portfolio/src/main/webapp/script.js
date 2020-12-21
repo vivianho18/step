@@ -63,26 +63,38 @@ function createMap() {
       {center: {lat: -33.888385, lng: 151.244747}, zoom: 12, 
       mapId: 'c41864c7bb66540a'});
 
-  const kincoppal = new google.maps.Marker({
-    position: {lat: -33.863366, lng: 151.271159},
-    map: map,
-    title: 'Kincoppal (my highschool)', 
-    animation: google.maps.Animation.DROP
-  });
+  const uniInfoWindow = 
+    '<h3>University of Sydney</h3>' +
+    '<p>This is where I go to university</p>'
 
-  const japanese = new google.maps.Marker({
-      position: {lat: -33.859159, lng: 151.278378}, 
-      map: map, 
-      title: 'Favourite Japanese Restaurant',
-      draggable: true,
-      animation: google.maps.Animation.DROP
-  }); 
+  const highSchoolInfoWindow =
+    '<h3>Kincoppal Rose Bay</h3>' +
+    '<p>This is where I went to high school</p>'
 
-  const uni = new google.maps.Marker({
-      position: {lat: -33.888813, lng: 151.188131}, 
-      map: map, 
-      title: 'University of Sydney', 
-      label: 'Uni',
-      animation: google.maps.Animation.DROP
+  const japaneseInfoWindow = 
+    '<h3>Sushi Den Vaucluse</h3>' +
+    '<p>This is my favourite local Japanese restaurant'
+
+  addLandmark(
+      map, -33.888813, 151.188131, 'University of Sydney', uniInfoWindow, 'A'
+  )
+
+  addLandmark(
+      map, -33.863366, 151.271159, 'Kincoppal Rose Bay', highSchoolInfoWindow, 'B'
+  )
+
+  addLandmark(
+      map, -33.859159, 151.278378, 'Sushi Den Vaucluse', japaneseInfoWindow, 'C'
+  )
+}
+
+/** Adds a marker (with drop animation) that shows an info window when clicked. */
+function addLandmark(map, lat, lng, title, description, label) {
+  const marker = new google.maps.Marker(
+      {position: {lat: lat, lng: lng}, map: map, title: title, label: label, animation: google.maps.Animation.DROP});
+
+  const infoWindow = new google.maps.InfoWindow({content: description});
+  marker.addListener('click', () => {
+    infoWindow.open(map, marker);
   });
 }
