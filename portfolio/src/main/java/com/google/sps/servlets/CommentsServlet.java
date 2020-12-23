@@ -15,6 +15,8 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.FetchOptions;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/comments")
@@ -36,10 +38,10 @@ public class CommentsServlet extends HttpServlet {
 
     for (Entity entity : results.asIterable(fetchOptions)) {
       HashMap<String, String> comment = new HashMap<String, String>();
-      String name = (String) entity.getProperty("name");
       String content = (String) entity.getProperty("content");
-      comment.put("name", name);
+      String emailAddress = (String) entity.getProperty("email");
       comment.put("content", content);
+      comment.put("email", emailAddress); 
       allComments.add(comment);
     }
 
@@ -51,13 +53,16 @@ public class CommentsServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get user input from the form element in HTML page 
-    String name = request.getParameter("name"); 
     String content = request.getParameter("content");
+
+    // Get the user's email 
+    UserService userService = UserServiceFactory.getUserService();
+    String emailAddress = userService.getCurrentUser().getEmail();
 
     // Create an entity instance and store in Datastore
     Entity commentEntity = new Entity("Comment");
-    commentEntity.setProperty("name", name);
     commentEntity.setProperty("content", content);
+    commentEntity.setProperty("email", emailAddress);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
     
