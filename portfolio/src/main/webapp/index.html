@@ -7,7 +7,7 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCy0lfm1q0m9beirXgwL_BOWdCRt5Z1Msk&map_ids=c41864c7bb66540a"></script>
     <script src="script.js"></script>
   </head>
-  <body onload="getCommentsFromServer(); createMap();">
+  <body onload="getCommentsFromServer(); createMap(); toggleCommentForm();">
     <div id="content">
       <h1 style="text-align:center;"> &#128032 &#127774 &#127797 &#127800 &#128293
         Vivian's Portfolio 
@@ -64,7 +64,8 @@
       <p>Click the link to see photos!</p>
       <h2 style="background-color:skyblue">Comments</h2>
       <h3>Post a comment!</h3>
-      <form action="/comments" method="POST">
+      <p id='login-or-logout-prompt'></p>
+      <form id="comment-form" action="/comments" method="POST">
         <p>Your name:</p>
         <input type="text" id="name" name="name"><br>
         <p>Type your comment here:</p>
