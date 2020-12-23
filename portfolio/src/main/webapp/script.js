@@ -44,9 +44,9 @@ function getCommentsFromServer(number=2) {
       comments += "No comments have been posted yet :( Be the first!"
     } else {
       for (let i = 0; i < serverData.length; i++) {
-        let name = serverData[i].name; 
+        let email = serverData[i].email; 
         let content = serverData[i].content; 
-        comments += name + ": " + content + "<br><br>";
+        comments += email + ": " + content + "<br><br>";
       }
     }
     document.getElementById('comment-container').innerHTML = comments;
