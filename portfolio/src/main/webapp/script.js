@@ -185,3 +185,21 @@ function buildInfoWindowInput(lat, lng) {
 
   return containerDiv;
 }
+
+function toggleCommentForm() {
+  const request = new Request('/login-status', {'method': 'GET'}); 
+  fetch(request).then(response => response.json()).then((loginStatus) => {
+    let commentForm = document.getElementById('comment-form');
+
+    if (loginStatus.loggedIn === 'true') {
+      commentForm.style.display = 'block';
+      let logoutPrompt = '<a href=' + loginStatus.logoutUrl + '>Logout</a>';
+      document.getElementById('login-or-logout-prompt').innerHTML = logoutPrompt;
+    }
+    else {
+      commentForm.style.display = 'none';
+      let loginPrompt = '<p>You must be logged in to comment</p>' + '<a href=' + loginStatus.loginUrl + '>Login</a>';
+      document.getElementById('login-or-logout-prompt').innerHTML = loginPrompt;
+    }   
+  }); 
+}
