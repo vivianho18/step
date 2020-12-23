@@ -195,8 +195,7 @@ function toggleCommentForm() {
       commentForm.style.display = 'block';
       let logoutPrompt = '<a href=' + loginStatus.logoutUrl + '>Logout</a>';
       document.getElementById('login-or-logout-prompt').innerHTML = logoutPrompt;
-    }
-    else {
+    } else {
       commentForm.style.display = 'none';
       let loginPrompt = '<p>You must be logged in to comment</p>' + '<a href=' + loginStatus.loginUrl + '>Login</a>';
       document.getElementById('login-or-logout-prompt').innerHTML = loginPrompt;
