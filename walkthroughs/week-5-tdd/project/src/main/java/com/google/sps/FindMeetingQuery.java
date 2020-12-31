@@ -22,11 +22,20 @@ import com.google.sps.TimeRange;
 
 public final class FindMeetingQuery {
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    
-    // Store the times of events that attendees are already attending and sort by start time 
-    ArrayList<TimeRange> unavailabilities = new ArrayList<>(); 
-    Collection<String> attendees = request.getAttendees(); 
+    List<String> allAttendees = new ArrayList<>();
+    allAttendees.addAll(request.getAttendees());
+    allAttendees.addAll(request.getOptionalAttendees());
+    Collection<TimeRange> optionsConsideringAllAttendees = getAvailableTimes(events, request, allAttendees);
+    if (optionsConsideringAllAttendees.size() > 0) {
+      return optionsConsideringAllAttendees;
+    } else {
+      return getAvailableTimes(events, request, request.getAttendees());
+    }
+  }
 
+  private Collection<TimeRange> getAvailableTimes(Collection<Event> events, MeetingRequest request, Collection<String> attendees) {
+    // Store the times of events that attendees are already attending and sort by start time 
+    ArrayList<TimeRange> unavailabilities = new ArrayList<>();
     for (String attendee : attendees) {
         for (Event event : events) {
             for (String busyAttendee : event.getAttendees()) {
@@ -60,6 +69,7 @@ public final class FindMeetingQuery {
     }
     return availablities; 
   }
+
 
   // Helper function to merge times ranges given in an ArrayList
   // Returns an ArrayList of time ranges without any overlap 
