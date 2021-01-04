@@ -18,6 +18,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import com.google.sps.TimeRange;
 
 public final class FindMeetingQuery {
@@ -36,16 +37,16 @@ public final class FindMeetingQuery {
   private Collection<TimeRange> getAvailableTimes(Collection<Event> events, MeetingRequest request, Collection<String> attendees) {
     // Store the times of events that attendees are already attending and sort by start time 
     ArrayList<TimeRange> unavailabilities = new ArrayList<>();
-    for (String attendee : attendees) {
-        for (Event event : events) {
-            for (String busyAttendee : event.getAttendees()) {
-                if (attendee.equals(busyAttendee)) {
-                    unavailabilities.add(event.getWhen()); 
-                }
+    HashSet<String> attendeesHash = new HashSet<String>(); 
+    attendeesHash.addAll(attendees); 
+    
+    for (Event event : events) {
+        for (String busyAttendee : event.getAttendees()) {
+            if (attendeesHash.contains(busyAttendee)) {
+                unavailabilities.add(event.getWhen()); 
             }
         }
     }
-    unavailabilities.sort(TimeRange.ORDER_BY_START); 
 
     // Use helper function to merge the unavailable time ranges 
     ArrayList<TimeRange> mergedUnavailabilities = mergeTimes(unavailabilities); 
@@ -70,25 +71,20 @@ public final class FindMeetingQuery {
     return availablities; 
   }
 
-
   // Helper function to merge times ranges given in an ArrayList
-  // Returns an ArrayList of time ranges without any overlap 
+  // Returns an ArrayList of time ranges without any overlap in sorted order 
   private ArrayList<TimeRange> mergeTimes(ArrayList<TimeRange> ranges) {
+    ranges.sort(TimeRange.ORDER_BY_START); 
     ArrayList<TimeRange> mergedTimes = new ArrayList<>(); 
     for (TimeRange range : ranges) {
         if (mergedTimes.size() == 0) {
             mergedTimes.add(range); 
-        } else if (!mergedTimes.get(mergedTimes.size() -1).overlaps(range)) {
+        } else if (!mergedTimes.get(mergedTimes.size() - 1).overlaps(range)) {
             mergedTimes.add(range); 
         } else {
             TimeRange oldRange = mergedTimes.remove(mergedTimes.size() - 1); 
             int start = oldRange.start(); 
-            int end; 
-            if (oldRange.end() > range.end()) {
-                end = oldRange.end();
-            } else {
-                end = range.end();
-            }
+            int end = Math.max(oldRange.end(), range.end()); 
             TimeRange newRange = TimeRange.fromStartEnd(start, end, false); 
             mergedTimes.add(newRange);
         }
